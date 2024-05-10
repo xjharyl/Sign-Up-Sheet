@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Sign-Up Sheet </title>
+        <style>
+            body {
+                font-family: Georgia, Arial;
+                margin: 0;
+                padding: 0;
+                background-color: rgb(192, 247, 181);
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            form {
+                width: 50%;
+                margin: 0 auto;
+                background-color: #f9fdf7;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(15, 15, 15, 0.1)
+            }
+
+            fieldset {
+                border: 1px solid #8d8d8d;
+                border-radius: 5px;
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+
+            legend {
+                font-weight: bold;
+                font-size: 1.2em;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"],
+            input[type="password"],
+            input[type="email"],
+            select,
+            textarea {
+                width: calc(100% - 12px);
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #a3a3a3;
+                border-radius: 5px;
+            }
+
+            textarea {
+                height: 100px;
+            }
+
+            input[type="submit"],
+            input[type="reset"] {
+                background-color: #4dbe50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+
+            input[type="submit"]:hover,
+            input[type="reset"]:hover {
+                background-color: #45a049;
+            }
+
+            input:invalid {
+                border-color: red;
+            }
+
+            input:valid {
+                border-color: green;
+            }
+
+            #output {
+                margin-top: 20px;
+                padding: 10px;
+                border: 1px solid #e2e0e0;
+                border-radius: 5px;
+                background-color: #ebeaea;
+            }
+        </style>
+    </head>
+    <body>
+        <h1> Sign-Up Sheet </h1>
+        <form id="signup" onsubmit="submitForm(event)" onreset="resetForm()">
+            <fieldset>
+                <legend> Personal Information </legend>
+                <label for="name"> Name: </label>
+                <input type="text" id="name" name="name" required onblur="validateInput(this)" onfocus="resetInput(this)"><br>
+
+                <label for="username"> Preferred Username: </label>
+                <input type="text" id="username" name="username" required onblur="validateInput(this)" onfocus="resetInput(this)"><br>
+
+                <label for="gender"> Gender: </label>
+                <select id="gender" name="gender" required>
+                    <option value="male"> Male </option>
+                    <option value="female"> Female </option>
+                    <option value="unspecified"> Prefer not to mention </option>
+                </select><br>
+
+                <label for="password"> Password: </label><br>
+                <input type="password" id="password" name="password" required onblur="validateInput(this)" onfocus="resetInput(this)"><br>
+
+                <label for="email"> Email Address: </label><br>
+                <input type="email" id="email" name="email" required onblur="validateInput(this)" onfocus="resetInput(this)"><br>
+
+                <label for="address"> Address: </label><br>
+                <textarea id="address" name="address" required onblur="validateInput(this)" onfocus="resetInput(this)"></textarea><br>
+
+                <label for="interest"> Interests: </label><br>
+                <textarea id="interest" name="interest" required onblur="validateInput(this)" onfocus="resetInput(this)"></textarea><br>
+            </fieldset>
+
+            <input type="reset" value="Reset">
+            <input type="submit" value="Submit">
+        </form>
+
+        <div id="output"></div>
+
+        <script>
+            function validateInput(input) {
+                if (!input.value) {
+                    input.style.borderColor = "red";
+                }
+            }
+
+            function resetInput(input) {
+                input.style.borderColor = "";
+            }
+
+            function submitForm(event) {
+                event.preventDefault();
+                const form = document.getElementById('signup');
+                const outputDiv = document.getElementById('output');
+                const formData = new FormData(form);
+                let outputHTML = '<h2>Submitted Information:</h2>';
+                for (const [key, value] of formData.entries()) {
+                    outputHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+                }
+                outputDiv.innerHTML = outputHTML;
+            }
+
+            function resetForm() {
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = '';
+            }
+        </script>
+    </body>
+</html>
